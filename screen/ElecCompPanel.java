@@ -1,13 +1,15 @@
 package screen;
 
+import model.ElectricalComponent.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
+
 import javax.swing.*;
 import javax.swing.border.Border;
-import model.ElectricalComponent.*;
 
 public abstract class ElecCompPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
@@ -56,14 +58,6 @@ public abstract class ElecCompPanel extends JPanel{
 		add(unitComboBox);
 
 	}
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setType(String type){
-        this.type = type;
-    }
 
     public void rmButtonActionPerformed(ActionEvent e) {
         menu.getElecPanels().remove(id - 1);
@@ -147,7 +141,16 @@ public abstract class ElecCompPanel extends JPanel{
     public void setName() {
         nameLabel.setText(this.type + Integer.toString(id));
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setType(String type){
+        this.type = type;
+    }
     
-    public abstract ElectricalComponent castToElecComp();
     public abstract void setUnit();
+    public abstract ElectricalComponent castToElecComp();
+    
 }

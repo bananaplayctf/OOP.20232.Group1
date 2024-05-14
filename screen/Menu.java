@@ -1,18 +1,17 @@
 package screen;
 
-import java.awt.*;
 import java.util.ArrayList;
+
 import model.Circuit.*;
 import model.Source.*;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+
 import javax.swing.*;
-
-
-
 
 public class Menu extends JFrame{
 	private static final long serialVersionUID = 1L;
@@ -66,7 +65,6 @@ public class Menu extends JFrame{
 		sourceInputTf = new JTextField();
 		sourceInputTf.setEditable(true);
 		sourceInputTf.setBounds(300, 90, 160, 25);
-		
 		add(sourceInputTf);
 		
 		// Create Source Unit Input Cb
@@ -155,7 +153,6 @@ public class Menu extends JFrame{
 	}
 
 	private class SubmitCircuitListner implements ActionListener{
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
@@ -168,7 +165,6 @@ public class Menu extends JFrame{
 	}
 
 	private class HelpButtonListener implements ActionListener{
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
@@ -209,22 +205,6 @@ public class Menu extends JFrame{
 		update();
 	}
 	
-	public void update() {
-		this.add(elecPanels.get(elecPanels.size() - 1));
-		this.revalidate();
-		this.repaint();
-	}
-	
-	public void refresh() {
-		for (int i = 0; i < elecPanels.size(); i++) {                
-			elecPanels.get(i).setId(i + 1);
-			elecPanels.get(i).setName();
-			elecPanels.get(i).setBounds(250, 200 + 70 * i, 350, 50);
-		}
-		revalidate();
-		repaint();
-	}
-	
 	public Source getSource(){
 		if (((String) sourceComboBox.getSelectedItem()).equals("AC")){
 			return new AC(Double.parseDouble(frequencyInputTf.getText()), (String) frequencyUnitCb.getSelectedItem(), Double.parseDouble(sourceInputTf.getText()), (String) sourceComboBox.getSelectedItem());
@@ -243,16 +223,32 @@ public class Menu extends JFrame{
 		}
 	}
 
+	public ArrayList<ElecCompPanel> getElecPanels() {
+		return elecPanels;
+	}
+
+	public void update() {
+		this.add(elecPanels.get(elecPanels.size() - 1));
+		this.revalidate();
+		this.repaint();
+	}
+	
+	public void refresh() {
+		for (int i = 0; i < elecPanels.size(); i++) {                
+			elecPanels.get(i).setId(i + 1);
+			elecPanels.get(i).setName();
+			elecPanels.get(i).setBounds(250, 200 + 70 * i, 350, 50);
+		}
+		revalidate();
+		repaint();
+	}
+
 	public void addElecCompToCircuit(Circuit circuit){
 		for(ElecCompPanel e: elecPanels){
 			if (!e.equals(null)) {
 				circuit.AddElectricalComponent(e.castToElecComp());
 			}
 		}
-	}
-
-	public ArrayList<ElecCompPanel> getElecPanels() {
-		return elecPanels;
 	}
 
 	public static void main(String[] args) {

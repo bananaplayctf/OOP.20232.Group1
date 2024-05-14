@@ -9,7 +9,7 @@ public class ResistorPanel extends ElecCompPanel{
 	private static final long serialVersionUID = 1L;
 
 	public ResistorPanel(Menu menu, int id) {
-      	super(menu, id);
+      super(menu, id);
 		setType("R");
 		setName();
 		setUnit();

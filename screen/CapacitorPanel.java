@@ -1,6 +1,5 @@
 package screen;
 
-
 import javax.swing.DefaultComboBoxModel;
 
 import model.ElectricalComponent.Capacitor;
@@ -10,7 +9,7 @@ public class CapacitorPanel extends ElecCompPanel {
 	private static final long serialVersionUID = 1L;
 
 	public CapacitorPanel(Menu menu, int id) {
-   		super(menu, id);
+   	super(menu, id);
 		setType("C");
 		setName();
 		setUnit();

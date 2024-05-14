@@ -8,7 +8,7 @@ import model.ElectricalComponent.Inductor;
 public class InductorPanel extends ElecCompPanel {
 	private static final long serialVersionUID = 1L;
 	public InductorPanel(Menu menu, int id) {
-      	super(menu, id);
+      super(menu, id);
 		setType("L");
 		setName();
 		setUnit();
