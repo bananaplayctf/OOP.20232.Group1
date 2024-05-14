@@ -11,6 +11,6 @@ public class DC extends Source{
 	}
 	
 	public String toString() {
-		return "DC \n" + Double.toString(getVoltage()) + getVoltageUnit() + "\n";
+		return "DC \n" + Double.toString(getVoltage()) + " " + getVoltageUnit() + "\n";
 	}
 }

@@ -2,13 +2,16 @@ package screen;
 
 import java.awt.*;
 import java.util.ArrayList;
+import model.Circuit.*;
+import model.Source.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-
 import javax.swing.*;
+
+
 
 
 public class Menu extends JFrame{
@@ -28,7 +31,6 @@ public class Menu extends JFrame{
 	private JButton addResistorButton;
 	private JButton submitButton;
 	private ArrayList<ElecCompPanel> elecPanels;
-	private int cnt = 0;
 	
 	public Menu() {
 		// Create Circuit ComboBox
@@ -40,27 +42,7 @@ public class Menu extends JFrame{
 		// Create Help Button
 		helpButton = new JButton("?");
 		helpButton.setBounds(620, 12, 40, 30);
-		helpButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JFrame frame = new JFrame();
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setSize(300, 200);
-				frame.setLayout(new FlowLayout());
-				JTextArea textArea = new JTextArea(10, 50);
-				textArea.setText("Bộ không biết dùng hay gì mà hỏi? " +
-						"\nTự tìm hiểu đi!" +
-						"\nHihi");
-				textArea.setFont(new Font("Arial", Font.BOLD, 13));
-				textArea.setWrapStyleWord(true);
-				textArea.setLineWrap(true);
-				textArea.setOpaque(false);
-				textArea.setEditable(false);
-				textArea.setFocusable(false);
-				JScrollPane scrollPane = new JScrollPane(textArea);
-				JOptionPane.showMessageDialog(frame, scrollPane, "Help", JOptionPane.INFORMATION_MESSAGE);
-			}
-		});
+		helpButton.addActionListener( new HelpButtonListener());
 		add(helpButton);
 		
 		// Create Source Label
@@ -84,6 +66,7 @@ public class Menu extends JFrame{
 		sourceInputTf = new JTextField();
 		sourceInputTf.setEditable(true);
 		sourceInputTf.setBounds(300, 90, 160, 25);
+		
 		add(sourceInputTf);
 		
 		// Create Source Unit Input Cb
@@ -127,27 +110,13 @@ public class Menu extends JFrame{
 		// Create Submit Button
 		submitButton = new JButton("SUBMIT");
 		submitButton.setBounds(16, 490, 160, 60);
-		submitButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent actionEvent) {
-				JFrame newFrame = new JFrame("Submission Details");
-				newFrame.setSize(500, 300);
-				newFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				newFrame.setLayout(new FlowLayout());
-
-				JLabel messageLabel = new JLabel("Submission is successful!");
-				newFrame.add(messageLabel);
-
-				newFrame.setLocationRelativeTo(null);
-				newFrame.setVisible(true);
-			}
-
-		});
+		submitButton.addActionListener(new SubmitCircuitListner());
 		add(submitButton);
-                
-                elecPanels = new ArrayList<>();
 		
-                this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// Create Array List of ElecCompPanels
+		elecPanels = new ArrayList<>();
+
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(null);
 		this.setVisible(true);
 		this.setSize(700, 700);
@@ -181,48 +150,112 @@ public class Menu extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-                        addButtonActionPerformed(e);
+			addButtonActionPerformed(e);
 		}
 	}
-        
-      public void addButtonActionPerformed(ActionEvent e) {
-         if (elecPanels.size() < 5) {
-				if (e.getSource() == addCapacitorButton) {
-					elecPanels.add(new CapacitorPanel(this, elecPanels.size() + 1));
-				} else if (e.getSource() == addInductorButton) {
-					elecPanels.add(new InductorPanel(this, elecPanels.size() + 1));
-				} else {
-					elecPanels.add(new ResistorPanel(this, elecPanels.size() + 1));
-				}
-					elecPanels.get(elecPanels.size() - 1).setBounds(250, 200 + 70 * (elecPanels.size() - 1), 350, 50);
-            }
-         else {
-				return;
-         }
-         update();
-        }
-	
-      public void update() {
-            this.add(elecPanels.get(elecPanels.size() - 1));
-            this.revalidate();
-            this.repaint();
-        }
-        
-      public void refresh() {
-         for (int i = 0; i < elecPanels.size(); i++) {                
-            elecPanels.get(i).setId(i + 1);
-            elecPanels.get(i).setName();
-            elecPanels.get(i).setBounds(250, 200 + 70 * i, 350, 50);
-         }
-         revalidate();
-         repaint();
-      }
-        
-      public ArrayList<ElecCompPanel> getElecPanels() {
-         return elecPanels;
-      }
 
-		public static void main(String[] args) {
-			new Menu();
+	private class SubmitCircuitListner implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			Circuit submittedCircuit = getCircuit();
+			submittedCircuit.setSource(getSource());
+			addElecCompToCircuit(submittedCircuit);
+			// Waiting for Dat .......
 		}
+		
+	}
+
+	private class HelpButtonListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			JFrame frame = new JFrame();
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.setSize(300, 200);
+			frame.setLayout(new FlowLayout());	
+			JTextArea textArea = new JTextArea(10, 50);
+			textArea.setText("Bộ không biết dùng hay gì mà hỏi? " +
+					"\nTự tìm hiểu đi!" +
+					"\nHihi");
+			textArea.setFont(new Font("Arial", Font.BOLD, 13));
+			textArea.setWrapStyleWord(true);
+			textArea.setLineWrap(true);
+			textArea.setOpaque(false);
+			textArea.setEditable(false);
+			textArea.setFocusable(false);
+			JScrollPane scrollPane = new JScrollPane(textArea);
+			JOptionPane.showMessageDialog(frame, scrollPane, "Help", JOptionPane.INFORMATION_MESSAGE);
+		}
+
+	}
+        
+	public void addButtonActionPerformed(ActionEvent e) {
+		if (elecPanels.size() < 5) {
+			if (e.getSource() == addCapacitorButton) {
+				elecPanels.add(new CapacitorPanel(this, elecPanels.size() + 1));
+			} else if (e.getSource() == addInductorButton) {
+				elecPanels.add(new InductorPanel(this, elecPanels.size() + 1));
+			} else {
+				elecPanels.add(new ResistorPanel(this, elecPanels.size() + 1));
+			}
+				elecPanels.get(elecPanels.size() - 1).setBounds(250, 200 + 70 * (elecPanels.size() - 1), 350, 50);
+		}
+		else {
+			return;
+		}
+		update();
+	}
+	
+	public void update() {
+		this.add(elecPanels.get(elecPanels.size() - 1));
+		this.revalidate();
+		this.repaint();
+	}
+	
+	public void refresh() {
+		for (int i = 0; i < elecPanels.size(); i++) {                
+			elecPanels.get(i).setId(i + 1);
+			elecPanels.get(i).setName();
+			elecPanels.get(i).setBounds(250, 200 + 70 * i, 350, 50);
+		}
+		revalidate();
+		repaint();
+	}
+	
+	public Source getSource(){
+		if (((String) sourceComboBox.getSelectedItem()).equals("AC")){
+			return new AC(Double.parseDouble(frequencyInputTf.getText()), (String) frequencyUnitCb.getSelectedItem(), Double.parseDouble(sourceInputTf.getText()), (String) sourceComboBox.getSelectedItem());
+		}
+		else{
+			return new DC( Double.parseDouble(sourceInputTf.getText()), (String) sourceComboBox.getSelectedItem());
+		}
+	}
+
+	public Circuit getCircuit(){
+		if (((String) circuitComboBox.getSelectedItem()).equals("Parallel Circuit")){
+			return new ParallelCircuit();
+		}
+		else{
+			return new SerialCircuit();
+		}
+	}
+
+	public void addElecCompToCircuit(Circuit circuit){
+		for(ElecCompPanel e: elecPanels){
+			if (!e.equals(null)) {
+				circuit.AddElectricalComponent(e.castToElecComp());
+			}
+		}
+	}
+
+	public ArrayList<ElecCompPanel> getElecPanels() {
+		return elecPanels;
+	}
+
+	public static void main(String[] args) {
+		new Menu();
+	}
 }

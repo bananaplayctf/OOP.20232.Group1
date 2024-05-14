@@ -1,6 +1,5 @@
 package test;
 
-import com.ComplexNumber;
 import model.Circuit.*;
 import model.ElectricalComponent.*;
 import model.Source.*;

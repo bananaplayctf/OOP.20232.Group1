@@ -7,11 +7,13 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import javax.swing.*;
 import javax.swing.border.Border;
+import model.ElectricalComponent.*;
 
-public class ElecCompPanel extends JPanel{
+public abstract class ElecCompPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
     private Menu menu;
     private int id;
+    private String type;
 	private JLabel nameLabel;
 	private JButton removeButton;
 	private JTextField inputTf;
@@ -57,6 +59,10 @@ public class ElecCompPanel extends JPanel{
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setType(String type){
+        this.type = type;
     }
 
     public void rmButtonActionPerformed(ActionEvent e) {
@@ -118,18 +124,30 @@ public class ElecCompPanel extends JPanel{
         return id;
     }
 
-    public JLabel getLabel() {
-        return nameLabel;
+    public String getType(){
+        return this.type;
     }
 
-	public JComboBox<String> getComboBox(){
-        return unitComboBox;
-	}
+    public double getResistance(){
+        return Double.parseDouble(inputTf.getText());
+    }
 
+    public JComboBox<String> getComboBox(){
+        return unitComboBox;
+    }
+
+    public String getUnit(){
+        return (String) unitComboBox.getSelectedItem();
+    }
+    
 	public void setRemoveEvent(ActionListener al) {
         removeButton.addActionListener(al);
 	}
-
-    public void setName() {};
-    public void setUnit() {};
+    
+    public void setName() {
+        nameLabel.setText(this.type + Integer.toString(id));
+    }
+    
+    public abstract ElectricalComponent castToElecComp();
+    public abstract void setUnit();
 }
