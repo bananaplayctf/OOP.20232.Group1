@@ -24,6 +24,10 @@ public class Resistor extends ElectricalComponent{
 		else if (this.getUnit() == "MΩ") {
 			return this.resistance * 1e6;
 		}
+		else if (this.getUnit() == "GΩ") {
+			return this.resistance * 1e9;
+		
+		}
 		else {
 			return this.resistance;
 		}

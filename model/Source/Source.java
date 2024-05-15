@@ -35,7 +35,10 @@ public abstract class Source {
 		this.frequencyUnit = frequencyUnit;
 	}
 	public double getNormalizedVol() {
-		if (this.voltageUnit == "MV" ) {
+		if (this.voltageUnit == "GV") {
+			return this.voltage * 1e9;
+		}
+		else if (this.voltageUnit == "MV" ) {
 			return this.voltage * 1e6;
 		}
 		else if (this.voltageUnit == "kV") {
@@ -49,7 +52,10 @@ public abstract class Source {
 		}
 	}
 	public double getNormalizedFre() {
-		if (this.frequencyUnit == "MHz") {
+		if (this.frequencyUnit == "GHz") {
+			return this.frequency * 1e9;
+		}
+		else if (this.frequencyUnit == "MHz") {
 			return this.frequency * 1e6;
 		}
 		else if(this.frequencyUnit == "kHz") {
