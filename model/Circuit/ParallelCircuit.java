@@ -3,6 +3,8 @@ package model.Circuit;
 import com.ComplexNumber;
 
 import model.ElectricalComponent.ElectricalComponent;
+import model.ElectricalComponent.Inductor;
+import model.Source.AC;
 import model.Source.Source;
 
 public class ParallelCircuit extends Circuit{
@@ -25,8 +27,19 @@ public class ParallelCircuit extends Circuit{
 	}
 
 	@Override
-	public void CheckShortCircuit() {
-		
+	public boolean CheckShortCircuit() {
+		if (getSource() instanceof AC){
+			return false;
+		}
+		for(ElectricalComponent e : getElectricalComponents()){
+			if (e instanceof Inductor){
+				return true;
+			}
+		}
+		if (this.getEquivalentResistance().equals(new ComplexNumber(0, 0))){
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -35,7 +48,7 @@ public class ParallelCircuit extends Circuit{
 		for(ElectricalComponent e : getElectricalComponents()){
 			e.CalculateResistance(getSource().getNormalizedFre());
 		}
-		
+
 		// Calculate component's voltage
 		ComplexNumber totalVol = new ComplexNumber(getSource().getNormalizedVol(), 0);
 		for(ElectricalComponent e : getElectricalComponents()){

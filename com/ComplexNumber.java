@@ -70,6 +70,18 @@ public class ComplexNumber {
     @Override
     public String toString() {
         return real + "  +  " + imag + "i";
+    }  
+
+    @Override
+    public boolean equals(Object other){
+        if (!(other instanceof ComplexNumber)){
+            return false;
+        }
+        ComplexNumber temp = (ComplexNumber) other;
+        if ((getReal() == temp.getReal()) && (getImag() == temp.getImag())){
+            return true;
+        }
+        return false;
     }
 }
 

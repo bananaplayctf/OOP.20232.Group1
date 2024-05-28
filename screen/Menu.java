@@ -3,6 +3,7 @@ package screen;
 import java.util.ArrayList;
 
 import model.Circuit.*;
+import model.ElectricalComponent.ElectricalComponent;
 import model.Source.*;
 
 import java.awt.*;
@@ -12,6 +13,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 import javax.swing.*;
+
+import com.ComplexNumber;
 
 import draw.mainFrame;
 
@@ -32,7 +35,8 @@ public class Menu extends JFrame{
 	private JButton addResistorButton;
 	private JButton submitButton;
 	private ArrayList<ElecCompPanel> elecPanels;
-	
+	private AlertPanel alertPanel;
+
 	public Menu() {
 		// Create Circuit ComboBox
 		circuitComboBox = new JComboBox<String>();
@@ -116,6 +120,9 @@ public class Menu extends JFrame{
 		// Create Array List of ElecCompPanels
 		elecPanels = new ArrayList<>();
 
+		// Create Alert Panel
+		alertPanel = new AlertPanel();
+		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(null);
 		this.setVisible(true);
@@ -161,7 +168,22 @@ public class Menu extends JFrame{
 			Circuit submittedCircuit = getCircuit();
 			submittedCircuit.setSource(getSource());
 			addElecCompToCircuit(submittedCircuit);
-			mainFrame main = new mainFrame(submittedCircuit);
+			submittedCircuit.trigger();
+			remove(alertPanel);
+			if (submittedCircuit.CheckShortCircuit()){
+				alertPanel = new AlertPanel();
+				add(alertPanel);
+				ArrayList<String> errorList = new ArrayList<>();
+				for(ElectricalComponent ec : submittedCircuit.getElectricalComponents()){
+					if (ec.getResistance().equals(new ComplexNumber(0, 0))){
+						errorList.add(ec.getName());
+					}
+				}
+				alertPanel.showErrorMessage(errorList);
+			}
+			else{
+				new mainFrame(submittedCircuit);
+			}
 		}
 		
 	}

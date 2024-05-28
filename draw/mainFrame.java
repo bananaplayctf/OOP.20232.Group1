@@ -7,12 +7,8 @@ import model.Circuit.Circuit;
 public class mainFrame extends JFrame {
     private DrawPanel drawPanel;
     private TablePanel tablePanel;
-    private Circuit circuit;
     
     public mainFrame(Circuit circuit) {
-        this.circuit = circuit;
-        circuit.trigger();
-        
         this.drawPanel = new DrawPanel(circuit);
         this.drawPanel.setBounds(0, 0, 1200, 400);
         this.drawPanel.setComponentPosition();

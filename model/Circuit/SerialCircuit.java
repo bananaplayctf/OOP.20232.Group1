@@ -25,8 +25,11 @@ public class SerialCircuit extends Circuit{
 	}
 	
 	@Override
-	public void CheckShortCircuit() {
-		
+	public boolean CheckShortCircuit() {
+		if (this.getEquivalentResistance().equals(new ComplexNumber(0, 0))){
+			return true;
+		}
+		return false;
 	}
 
 	@Override

@@ -48,5 +48,5 @@ public abstract class Circuit {
 
 	public abstract void trigger();
 	public abstract void CalculateEquivalentResistance();
-	public abstract void CheckShortCircuit();
+	public abstract boolean CheckShortCircuit();
 }
