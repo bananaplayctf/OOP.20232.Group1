@@ -6,6 +6,7 @@ public class DC extends Source{
 	}
 	public DC(double voltage, String unit) {
 		super();
+		this.setFrequency(0);
 		this.setVoltage(voltage);
 		this.setVoltageUnit(unit);
 	}

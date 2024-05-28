@@ -1,12 +1,8 @@
 package draw;
 
-import java.awt.BasicStroke;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import model.Circuit.Circuit;
 import model.Circuit.ParallelCircuit;
-import model.Circuit.SerialCircuit;
 
 public class inductorGUI extends ElementGUI {
     private int id;

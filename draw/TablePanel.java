@@ -1,7 +1,6 @@
 package draw;
 
 import java.awt.Color;
-import com.ComplexNumber;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -12,7 +11,7 @@ import model.ElectricalComponent.ElectricalComponent;
 
 public class TablePanel extends JPanel {
 
-    private JTable tbl = new JTable();
+    private JTable tbl;
     private Circuit circuit;
 
     public TablePanel() {
@@ -27,15 +26,15 @@ public class TablePanel extends JPanel {
         DefaultTableModel model = new DefaultTableModel(new Object[][]{}, new String[]{});
         ArrayList<Object[]> elecCompColumns = new ArrayList<>();
 
+        model.addColumn("", new String[]{"", "Voltage", "Current", "Resistance"});
+        
         for (ElectricalComponent elecComp : circuit.getElectricalComponents()) {
             elecCompColumns.add(new Object[] {elecComp.getName(), elecComp.getVoltage(), elecComp.getCurrent(), elecComp.getResistance()});
         }
 
-        model.addColumn("", new String[]{"", "Voltage", "Current", "Resistance"});
-        
         elecCompColumns.forEach((col) -> model.addColumn(col[0], col));
 
-        tbl.setModel(model);
+        tbl = new JTable(model);
         tbl.setRowHeight(50);
         tbl.setBorder(new LineBorder(Color.GRAY, 1));
         tbl.setBounds(100, 100, this.getWidth() - 200, this.getHeight() - 200);

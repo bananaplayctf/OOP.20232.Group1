@@ -10,8 +10,7 @@ public abstract class Circuit {
 	private int totalComponents;
 	private  ArrayList<ElectricalComponent> electricalComponents;
 	private Source source;
-	private ComplexNumber totalCurrent;
-	private ComplexNumber totalResistance;
+	private ComplexNumber equivalentResistance;
 	
 	public Circuit() {
 		electricalComponents = new ArrayList<ElectricalComponent>();
@@ -23,33 +22,31 @@ public abstract class Circuit {
 			totalComponents += 1;
 		}
 	}
-	public void RemoveElectricalComponent(ElectricalComponent e) {	
+
+	public ComplexNumber getEquivalentResistance() {
+		return this.equivalentResistance;
 	}
-	public ComplexNumber getTotalCurrent() {
-		return this.totalCurrent;
-	}
-	public ComplexNumber getTotalResistance() {
-		return this.totalResistance;
-	}
+
 	public Source getSource() {
 		return this.source;
 	}
+
 	public int getTotalComponents() {
 		return this.totalComponents;
 	}
+
 	public ArrayList<ElectricalComponent> getElectricalComponents(){
 		return this.electricalComponents;
 	}
+
 	public void setSource(Source src) {
 		this.source = src;
 	}
-	public void setTotalResistance(ComplexNumber r) {
-		this.totalResistance = r;
+	public void setEquivalentResistance(ComplexNumber r) {
+		this.equivalentResistance = r;
 	}
-	public void setTotalCurrent(ComplexNumber i) {
-		this.totalCurrent = i;
-	}
-	public abstract void CalculateTotalCurrent();
-	public abstract void CalculateTotalResistance();
+
+	public abstract void trigger();
+	public abstract void CalculateEquivalentResistance();
 	public abstract void CheckShortCircuit();
 }

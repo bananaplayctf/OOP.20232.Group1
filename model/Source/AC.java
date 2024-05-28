@@ -12,6 +12,6 @@ public class AC extends Source{
 	}
 	
 	public String toString() {
-		return "AC \n" + Double.toString(getFrequency()) + " " + getFrequencyUnit() + "\n" + Double.toString(getVoltage()) + getVoltageUnit() + "\n";
+		return "AC \n" + Double.toString(getFrequency()) + " " + getFrequencyUnit() + "\n" + Double.toString(getVoltage()) + " " + getVoltageUnit() + "\n";
 	}
 }

@@ -10,7 +10,7 @@ public class Resistor extends ElectricalComponent{
 	}
 	@Override
 	public String toString() {
-		return "Name: " + this.getName() + " " +
+		return  this.getName() + "\n" +
 				Double.toString(this.resistance) + " " + this.getUnit() + "\n";
 	}
 	@Override

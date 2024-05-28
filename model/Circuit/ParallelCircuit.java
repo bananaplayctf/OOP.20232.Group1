@@ -13,25 +13,41 @@ public class ParallelCircuit extends Circuit{
 		super();
 		setSource(source);
 	}
+
 	@Override
-	public void CalculateTotalResistance() {
-		for(ElectricalComponent e : getElectricalComponents()) {
-			e.setVoltage(this.getSource().getNormalizedVol(), 0);
-			e.CalculateResistance(this.getSource().getNormalizedFre());
-		}
+	public void CalculateEquivalentResistance() {
 		ComplexNumber invRes = new ComplexNumber(0, 0);
 		ComplexNumber temp = new ComplexNumber(1, 0);
 		for(ElectricalComponent e : getElectricalComponents()) {
 			invRes = invRes.add(temp.divide(e.getResistance()));
 		}
-		this.setTotalResistance(temp.divide(invRes));
+		this.setEquivalentResistance(temp.divide(invRes));
 	}
-	@Override
-	public void CalculateTotalCurrent() {
-		
-	}
+
 	@Override
 	public void CheckShortCircuit() {
 		
+	}
+
+	@Override
+	public void trigger(){
+		// Trigger all components
+		for(ElectricalComponent e : getElectricalComponents()){
+			e.CalculateResistance(getSource().getNormalizedFre());
+		}
+		
+		// Calculate component's voltage
+		ComplexNumber totalVol = new ComplexNumber(getSource().getNormalizedVol(), 0);
+		for(ElectricalComponent e : getElectricalComponents()){
+			e.setVoltage(totalVol.getReal(), totalVol.getImag());
+		}
+
+		// Calculate component's current
+		for(ElectricalComponent e : getElectricalComponents()){
+			ComplexNumber tempCurrent = totalVol.divide(e.getResistance());
+			e.setCurrent(tempCurrent.getReal(), tempCurrent.getImag());
+		}
+
+		CalculateEquivalentResistance();
 	}
 }

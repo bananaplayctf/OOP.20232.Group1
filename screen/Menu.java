@@ -13,6 +13,8 @@ import java.awt.event.ItemListener;
 
 import javax.swing.*;
 
+import draw.mainFrame;
+
 public class Menu extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private JComboBox<String> circuitComboBox;
@@ -159,7 +161,7 @@ public class Menu extends JFrame{
 			Circuit submittedCircuit = getCircuit();
 			submittedCircuit.setSource(getSource());
 			addElecCompToCircuit(submittedCircuit);
-			// Waiting for Dat .......
+			mainFrame main = new mainFrame(submittedCircuit);
 		}
 		
 	}
@@ -207,10 +209,10 @@ public class Menu extends JFrame{
 	
 	public Source getSource(){
 		if (((String) sourceComboBox.getSelectedItem()).equals("AC")){
-			return new AC(Double.parseDouble(frequencyInputTf.getText()), (String) frequencyUnitCb.getSelectedItem(), Double.parseDouble(sourceInputTf.getText()), (String) sourceComboBox.getSelectedItem());
+			return new AC(Double.parseDouble(frequencyInputTf.getText()), (String) frequencyUnitCb.getSelectedItem(), Double.parseDouble(sourceInputTf.getText()), (String) sourceUnitCb.getSelectedItem());
 		}
 		else{
-			return new DC( Double.parseDouble(sourceInputTf.getText()), (String) sourceComboBox.getSelectedItem());
+			return new DC( Double.parseDouble(sourceInputTf.getText()), (String) sourceUnitCb.getSelectedItem());
 		}
 	}
 
@@ -249,9 +251,5 @@ public class Menu extends JFrame{
 				circuit.AddElectricalComponent(e.castToElecComp());
 			}
 		}
-	}
-
-	public static void main(String[] args) {
-		new Menu();
 	}
 }

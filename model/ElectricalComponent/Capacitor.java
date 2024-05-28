@@ -10,7 +10,7 @@ public class Capacitor extends ElectricalComponent{
 	}
 	@Override
 	public String toString() {
-		return "Name: " + this.getName() + " " +
+		return  this.getName() + "\n" +
 				Double.toString(this.capaciatance) + " " + this.getUnit() + "\n";
 	}
 	@Override

@@ -10,7 +10,7 @@ public class Inductor extends ElectricalComponent {
 	}	
 	@Override
 	public String toString() {
-		return "Name: " + this.getName() + " " +
+		return  this.getName() + "\n" +
 				Double.toString(this.inductance) + " " + this.getUnit() + "\n";
 	}
 	@Override

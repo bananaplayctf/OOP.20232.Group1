@@ -6,6 +6,10 @@ public class ComplexNumber {
     private final double imag;
 
     public ComplexNumber(double real, double imag) {
+        if (Double.isInfinite(imag)){
+            real = Double.POSITIVE_INFINITY;
+            imag = Double.POSITIVE_INFINITY;
+        }
         this.real = real;
         this.imag = imag;
     }
@@ -38,6 +42,9 @@ public class ComplexNumber {
 
     // Method to divide complex numbers (handles division by zero)
     public ComplexNumber divide(ComplexNumber other) {
+        if (Double.isInfinite(other.getReal()) || Double.isInfinite(other.getImag())){
+            return new ComplexNumber(0, 0);
+        }
         double denominator = other.real * other.real + other.imag * other.imag;
         double newReal = (this.real * other.real + this.imag * other.imag) / denominator;
         double newImag = (this.imag * other.real - this.real * other.imag) / denominator;
@@ -62,7 +69,7 @@ public class ComplexNumber {
     // Override toString() method for a human-readable representation
     @Override
     public String toString() {
-        return "(" + real + " + " + imag + "i)";
+        return real + "  +  " + imag + "i";
     }
 }
 
