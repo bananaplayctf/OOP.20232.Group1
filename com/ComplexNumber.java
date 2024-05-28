@@ -69,6 +69,9 @@ public class ComplexNumber {
     // Override toString() method for a human-readable representation
     @Override
     public String toString() {
+        if (imag < 0) {
+            return real + "  -  " + (-imag) + "i";
+        }
         return real + "  +  " + imag + "i";
     }  
 
