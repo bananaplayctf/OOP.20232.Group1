@@ -6,10 +6,10 @@ import model.Circuit.Circuit;
 import model.Circuit.ParallelCircuit;
 
 
-public class resistorGUI extends ElementGUI {
+public class ResistorGUI extends ElementGUI {
     private int id;
 
-    public resistorGUI(Circuit circuit, int id) {
+    public ResistorGUI(Circuit circuit, int id) {
         super(circuit);
         this.id = id;
     }

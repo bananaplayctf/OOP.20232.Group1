@@ -4,18 +4,18 @@ import javax.swing.JFrame;
 import model.Circuit.Circuit;
 
 
-public class mainFrame extends JFrame {
+public class AnalysisFrame extends JFrame {
     private DrawPanel drawPanel;
     private TablePanel tablePanel;
     
-    public mainFrame(Circuit circuit) {
+    public AnalysisFrame(Circuit circuit) {
         this.drawPanel = new DrawPanel(circuit);
-        this.drawPanel.setBounds(0, 0, 1200, 400);
-        this.drawPanel.setComponentPosition();
+        drawPanel.setBounds(0, 0, 1200, 400);
+        drawPanel.config();
         
         this.tablePanel = new TablePanel(circuit);
         tablePanel.setBounds(0, 400, 1200, 400);
-        tablePanel.showTable();
+        tablePanel.config();
         
         this.add(drawPanel); 
         this.add(tablePanel);

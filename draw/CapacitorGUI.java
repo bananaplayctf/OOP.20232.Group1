@@ -4,10 +4,10 @@ import java.awt.Graphics2D;
 import model.Circuit.Circuit;
 import model.Circuit.ParallelCircuit;
 
-public class capacitorGUI extends ElementGUI {
+public class CapacitorGUI extends ElementGUI {
     private int id;
 
-    public capacitorGUI(Circuit circuit, int id) {
+    public CapacitorGUI(Circuit circuit, int id) {
         super(circuit);
         this.id = id;
     }

@@ -4,10 +4,10 @@ import java.awt.Graphics2D;
 import model.Circuit.Circuit;
 import model.Circuit.ParallelCircuit;
 
-public class inductorGUI extends ElementGUI {
+public class InductorGUI extends ElementGUI {
     private int id;
     
-    public inductorGUI(Circuit circuit, int id) {
+    public InductorGUI(Circuit circuit, int id) {
         super(circuit);
         this.id = id;
     }
