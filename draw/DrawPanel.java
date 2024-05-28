@@ -8,13 +8,15 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.util.ArrayList;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import model.Circuit.*;
 import model.ElectricalComponent.*;
 
 public class DrawPanel extends JPanel {
-
+    
+    private JLabel lbl = new JLabel("Circuit Diagram");
     private Circuit circuit;
     private int[] componentPositionX;
 
@@ -39,6 +41,8 @@ public class DrawPanel extends JPanel {
 
     @Override
     public void paintComponent(Graphics g) {
+        setComponentPosition();
+        
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
@@ -57,11 +61,11 @@ public class DrawPanel extends JPanel {
 
                 switch (checkComponent(ElecComp.get(i))) {
                     case 1 ->
-                        paintElecComponent(g2d, new capacitorGUI(circuit, i), centerX, centerY, 20, 30);
+                        paintElecComponent(g2d, new CapacitorGUI(circuit, i), centerX, centerY, 20, 30);
                     case 2 ->
-                        paintElecComponent(g2d, new resistorGUI(circuit, i), centerX, centerY, 100, 30);
+                        paintElecComponent(g2d, new ResistorGUI(circuit, i), centerX, centerY, 100, 30);
                     case 3 ->
-                        paintElecComponent(g2d, new inductorGUI(circuit, i), centerX, centerY, 90, 30);
+                        paintElecComponent(g2d, new InductorGUI(circuit, i), centerX, centerY, 90, 30);
                     default -> {
                     }
                 }
@@ -72,11 +76,11 @@ public class DrawPanel extends JPanel {
                 centerY = 200;
                 switch (checkComponent(ElecComp.get(i))) {
                     case 1 ->
-                        this.paintElecComponent(g2d, new capacitorGUI(circuit, i), centerX, centerY, 20, 30);
+                        this.paintElecComponent(g2d, new CapacitorGUI(circuit, i), centerX, centerY, 20, 30);
                     case 2 ->
-                        this.paintElecComponent(g2d, new resistorGUI(circuit, i), centerX, centerY, 100, 30);
+                        this.paintElecComponent(g2d, new ResistorGUI(circuit, i), centerX, centerY, 100, 30);
                     case 3 ->
-                        this.paintElecComponent(g2d, new inductorGUI(circuit, i), centerX, centerY, 90, 30);
+                        this.paintElecComponent(g2d, new InductorGUI(circuit, i), centerX, centerY, 90, 30);
                     default -> {
                     }
                 }
@@ -127,5 +131,13 @@ public class DrawPanel extends JPanel {
     public void paintElecComponent(Graphics2D g2d, ElementGUI eleGUI, int centerX, int centerY, int width, int height) {
         eleGUI.setPosition(centerX, centerY, width, height);
         eleGUI.paintComponent(g2d);
+    }
+    
+    public void config() {
+        this.setLayout(null);
+        
+        this.lbl.setFont(new Font("Arial", Font.BOLD, 20));
+        this.lbl.setBounds(50, 0, 150, 30);
+        this.add(lbl);
     }
 }

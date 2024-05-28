@@ -16,7 +16,7 @@ import javax.swing.*;
 
 import com.ComplexNumber;
 
-import draw.mainFrame;
+import draw.AnalysisFrame;
 
 public class Menu extends JFrame{
 	private static final long serialVersionUID = 1L;
@@ -182,7 +182,7 @@ public class Menu extends JFrame{
 				alertPanel.showErrorMessage(errorList);
 			}
 			else{
-				new mainFrame(submittedCircuit);
+				new AnalysisFrame(submittedCircuit);
 			}
 		}
 		
