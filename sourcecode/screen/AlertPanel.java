@@ -29,7 +29,12 @@ public class AlertPanel extends JPanel{
         for(String erroString : errorList){
             errorMess += erroString + ", ";
         }
-        errorMess += "have the resistance equals to 0!";
+        if (errorList.size() == 0){
+            errorMess += "Equivalent resistance equals to 0!!!!";
+        }
+        else{
+            errorMess += "have the resistance equals to 0!";
+        }
         JLabel errorLabel = new JLabel();
         errorLabel.setText(errorMess);
         errorLabel.setFont(new Font("Arial", Font.PLAIN, 15));

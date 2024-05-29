@@ -21,7 +21,7 @@ public class AnalysisFrame extends JFrame {
         this.add(tablePanel);
 
         this.setLayout(null);
-        this.setSize(1200, 800);
+        this.setSize(1200, 850);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setVisible(true);
     }

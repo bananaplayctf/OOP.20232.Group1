@@ -39,6 +39,8 @@ public class TablePanel extends JPanel {
 
         elecCompColumns.forEach((col) -> model.addColumn(col[0], col));
 
+        model.addColumn("Unit", new String[] {"Unit", "V", "A", "Ω"});
+
         tbl = new JTable(model);
         tbl.setFont(new Font("Arial", Font.BOLD, 16));
         tbl.setRowHeight(50);
